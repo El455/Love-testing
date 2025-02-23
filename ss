@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sevgi Testi</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+            color: white;
+        }
+        .container {
+            text-align: center;
+            z-index: 2;
+        }
+        .box {
+            background: linear-gradient(to right, purple, pink);
+            padding: 20px;
+            border-radius: 20px;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .yes { background: green; color: white; }
+        .no { background: red; color: white; }
+        .heart, .angry {
+            position: absolute;
+            font-size: 20px;
+            animation: float 4s linear infinite;
+        }
+        .heart { color: red; }
+        .angry { color: yellow; }
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box" id="message">Məni sevirsən?</div>
+        <button class="button yes" onclick="loveResponse(true)">BƏLİ</button>
+        <button class="button no" onclick="loveResponse(false)">XEYİR</button>
+    </div>
+    <script>
+        function loveResponse(love) {
+            let message = document.getElementById("message");
+            if (love) {
+                message.innerText = "Yaşasın! Mən də səni sevirəm!";
+                createAnimation("❤️", "heart");
+            } else {
+                message.innerText = "Məndən ayrılsan xeyir tapmayassan, bala! 😡";
+                createAnimation("😡", "angry");
+            }
+        }
+        function createAnimation(symbol, className) {
+            for (let i = 0; i < 20; i++) {
+                let item = document.createElement("div");
+                item.classList.add(className);
+                item.innerHTML = symbol;
+                document.body.appendChild(item);
+                
+                let posX = Math.random() * window.innerWidth;
+                item.style.left = `${posX}px`;
+                item.style.top = `${window.innerHeight}px`;
+                item.style.fontSize = `${Math.random() * 30 + 10}px`;
+                item.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                
+                setTimeout(() => { item.remove(); }, 4000);
+            }
+        }
+    </script>
+</body>
+</html>
